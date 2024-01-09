@@ -24,7 +24,6 @@ jobs:
           cp LICENSE target/release/frigatify bundled/
       - name: Zip Release Artifact
         run: |
-          cd bundled
           zip linux_x86_64-unknown-linux-musl.zip frigatify LICENSE
         working-directory: bundled
 
