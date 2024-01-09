@@ -24,11 +24,13 @@ jobs:
           cp LICENSE target/release/frigatify bundled/
       - name: Zip Release Artifact
         run: |
-          zip linux_x86_64-unknown-linux-musl.zip frigatify LICENSE
+          zip linux_x86_64.zip frigatify LICENSE
         working-directory: bundled
 
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v4.0.0
+      - name: Update nightly release
+        uses: pyTooling/Actions/releaser@r0
         with:
-          name: release
-          path: bundled/linux_x86_64-unknown-linux-musl.zip
+          tag: latest
+          rm: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: bundled/linux_x86_64.zip
