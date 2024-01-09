@@ -13,14 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Rust
-        uses: actions/setup-rust@v1
-        with:
-          profile: minimal
-          toolchain: stable
       - name: Install needed stuff
-        run: apt install fontconfig build-essential
+        run: apt install fontconfig build-essential -y
       - name: Build
         run: cargo build --release --target x86_64-unknown-linux-musl
 
