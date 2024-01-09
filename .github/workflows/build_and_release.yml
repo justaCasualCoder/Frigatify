@@ -18,7 +18,7 @@ jobs:
           sudo apt install fontconfig build-essential -y 
           rustup target add x86_64-unknown-linux-musl
       - name: Build
-        run: cargo build --release --target x86_64-unknown-linux-musl
+        run: CC=/usr/bin/gcc CXX=/usr/bin/g++ cargo build --release --target x86_64-unknown-linux-musl
       - name: Bundle License and Executable
         run: |
           mkdir -p bundled
