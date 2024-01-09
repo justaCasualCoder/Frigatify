@@ -9,6 +9,8 @@ on:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    permissions: write-all
+
 
     steps:
       - name: Checkout code
@@ -27,7 +29,7 @@ jobs:
           zip linux_x86_64.zip frigatify LICENSE
         working-directory: bundled
 
-      - name: Update nightly release
+      - name: Update latest release
         uses: pyTooling/Actions/releaser@r0
         with:
           tag: latest
