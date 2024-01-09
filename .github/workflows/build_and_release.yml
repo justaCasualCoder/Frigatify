@@ -23,10 +23,10 @@ jobs:
       - name: Bundle License and Executable
         run: |
           mkdir -p bundled
-          cp LICENSE target/release/frigatify bundled/
+          cp LICENSE target/release/frigatify config.toml bundled/
       - name: Zip Release Artifact
         run: |
-          zip linux_x86_64.zip frigatify LICENSE
+          zip linux_x86_64.zip frigatify LICENSE config.toml
         working-directory: bundled
 
       - name: Update latest release

@@ -1,0 +1,6 @@
+# MQTT Server
+mqtt_host = "test.mosquitto.org"
+# MQTT Server Port
+mqtt_port = "1883"
+# Frigate Host (No trailing /) 
+frigate_host = "http://yourfrigateserverip:5000"

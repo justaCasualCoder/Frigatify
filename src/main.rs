@@ -3,8 +3,11 @@ use std::time::Duration;
 use std::collections::HashMap;
 use config::Config;
 use serde_json::Value;
+use env_logger;
 mod notify;
 fn main() {
+    // Enable Logger
+    env_logger::init();
     // Config file reading
     let file_path = dirs::home_dir()
         .map(|mut path| {
@@ -54,6 +57,7 @@ fn main() {
                             log::debug!("Event ID: {:?}", id);
                             log::debug!("{} Detected!", json["after"]["label"]);
                             let image_path = format!("{:?}/api/events/{:?}/snapshot.jpg" , frigate_host , id);
+                            log::debug!("Image Download URL: {}", image_path);
                             notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string()).expect("Error Displaying notification");
                         }
                     }
