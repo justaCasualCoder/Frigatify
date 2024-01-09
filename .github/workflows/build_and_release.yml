@@ -1,9 +1,16 @@
 # .github/workflows/build_and_release.yml
+name: Build and Release
 
 on:
   release:
     types: [created]
-
+  workflow_dispatch: {}
+  push:
+    paths:
+        - '.github/workflows/build_and_release.yml'
+        - 'src/*'
+        - 'src/notify/*'
+permissions: write-all
 jobs:
   release:
     name: release ${{ matrix.target }}
