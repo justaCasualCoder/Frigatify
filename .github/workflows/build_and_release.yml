@@ -7,22 +7,16 @@ on:
       - '.github/workflows/build_and_release.yml'
 
 jobs:
-  build:
+  build-release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install needed stuff
-        run: sudo apt install fontconfig build-essential -y
+        run: sudo apt install fontconfig build-essential -y && 
       - name: Build
         run: cargo build --release --target x86_64-unknown-linux-musl
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Bundle License and Executable
         run: |
           mkdir -p bundled
@@ -34,7 +28,7 @@ jobs:
         working-directory: bundled
 
       - name: Upload release artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: release
           path: bundled/linux_x86_64-unknown-linux-musl.zip
