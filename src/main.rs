@@ -56,7 +56,7 @@ fn main() {
                             log::debug!("{} Detected!", json["after"]["label"]);
                             let image_path = format!("{}/api/events/{}/snapshot.jpg" , frigate_host , id);
                             log::debug!("Image Download URL: {}", image_path);
-                            notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string()).expect("Error Displaying notification");
+                            notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string(), json["before"]["entered_zones"].to_string()).expect("Error Displaying notification");
                         } else if Some("update") == Some(json["type"].as_str().unwrap()) {
                             // TODO: Handle updating notifcation
                         }
