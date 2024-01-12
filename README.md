@@ -10,6 +10,9 @@
   alt="Open Issues"
   src="https://img.shields.io/github/issues/justaCasualCoder/Frigatify"
   ></a>
+ <a href="https://github.com/justaCasualCoder/Frigatify/actions/workflows/build_and_release.yml"><img
+  alt="Build Status"
+  src="https://github.com/justaCasualCoder/Frigatify/actions/workflows/build_and_release.yml/badge.svg?branch=master"                                                         ></a>
  <a href="https://www.rust-lang.org/"><img
   alt="Coded in Rust"
   src="https://img.shields.io/badge/Rust-CE422B"></a>
