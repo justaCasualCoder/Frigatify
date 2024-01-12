@@ -26,7 +26,7 @@ jobs:
           cp LICENSE target/release/frigatify config.toml frigatify.service bundled/
       - name: Zip Release Artifact
         run: |
-          zip linux_x86_64.zip frigatify LICENSE config.toml
+          zip linux_x86_64.zip frigatify LICENSE config.toml frigatify.service
         working-directory: bundled
 
       - name: Update latest release
