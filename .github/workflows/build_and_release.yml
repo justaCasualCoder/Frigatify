@@ -23,7 +23,7 @@ jobs:
       - name: Bundle License and Executable
         run: |
           mkdir -p bundled
-          cp LICENSE target/release/frigatify config.toml bundled/
+          cp LICENSE target/release/frigatify config.toml frigatify.service bundled/
       - name: Zip Release Artifact
         run: |
           zip linux_x86_64.zip frigatify LICENSE config.toml
