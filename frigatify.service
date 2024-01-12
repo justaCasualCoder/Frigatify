@@ -1,0 +1,14 @@
+[Unit]
+Description=Start frigatify
+Documentation=https://github.com/justaCasualCoder/Frigatify
+After=network.target
+Wants=network-online.target
+
+[Service]
+Restart=always
+Type=simple
+ExecStart=/bin/frigatify
+
+
+[Install]
+WantedBy=default.target

@@ -33,6 +33,11 @@ Then modify the config to work for you:
 ```bash
 nano ~/.config/frigatify/config.toml
 ```
+Enable & start it if you want to:
+```bash
+cp frigatify.service /home/lucas/.config/systemd/user/
+systemctl --user enable --now frigatify
+```
 ## How to Contribute
 
 - Feel free to open issues for bug reports, feature requests, or general feedback.
