@@ -27,8 +27,9 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. Debian]
  - Version [e.g. 22]
  - Desktop Environment [e.g. KDE Plasma]
+
 ***Log Output:*
-Run with RUST_LOG=debug frigatify
+Run with `RUST_LOG=debug frigatify`
 ```
 ```
 **Additional context**
