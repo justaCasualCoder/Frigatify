@@ -1,6 +1,6 @@
 # Frigatify
 <h4 align="center">
- A Rust client providing <strong>FRIGAT</strong>e NVR desktop <strong>NOTIF</strong>ications using only <code>MQTT</code>. No Home Assistant required!
+ A Rust client providing <strong>FRIGAT</strong>e NVR Linux desktop <strong>NOTIF</strong>ications using only <code>MQTT</code>. No Home Assistant required!
 </h4>
 <p align="center">
  <a href="https://opensource.org/license/gpl-3-0/"><img

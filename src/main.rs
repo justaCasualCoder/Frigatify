@@ -34,31 +34,31 @@ fn main() {
         .unwrap_or(1883);
     // Set up MQTT
     let mut mqttoptions = MqttOptions::new("frigatify", mqtt_host, mqtt_port);
-    mqttoptions.set_keep_alive(Duration::from_secs(5));
+    mqttoptions.set_keep_alive(Duration::from_secs(20));
+    mqttoptions.set_clean_session(false);
     let (mut client, mut connection) = Client::new(mqttoptions, 10);
-    client.subscribe("frigate/events", QoS::AtMostOnce).unwrap();
-    // Make ID variable
-    let mut id: Option<String> = None;
+    client.subscribe("frigate/events", QoS::ExactlyOnce).unwrap();
     // Parse notifications
     for (index, result) in connection.iter().enumerate() {
         match result {
             // Get Payload
             Ok(rumqttc::Event::Incoming(rumqttc::Packet::Publish(publish))) => {
                 // println!("{}", String::from_utf8_lossy(&publish.payload))
-                let val = String::from_utf8_lossy(&publish.payload); // Convert MQTT payload to string
+                let val: std::borrow::Cow<'_, str> = String::from_utf8_lossy(&publish.payload); // Convert MQTT payload to string
                 let json_result: Result<Value, serde_json::Error> = serde_json::from_str(&val); // Parse JSON
                 match json_result {
                     Ok(json) => {
                         // Now 'json' is a serde_json::Value
-                        // println!("Deserialized JSON: {:?}", json);
                         log::debug!("Deserialized JSON: {:?}", json);
-                        if id != Some(json["before"]["id"].to_string()) {
-                            id = Some(json["before"]["id"].clone().to_string());
+                        if Some("new") == Some(json["type"].as_str().unwrap()) {
+                            let id = json["before"]["id"].as_str().unwrap();
                             log::debug!("Event ID: {:?}", id);
                             log::debug!("{} Detected!", json["after"]["label"]);
-                            let image_path = format!("{:?}/api/events/{:?}/snapshot.jpg" , frigate_host , id);
+                            let image_path = format!("{}/api/events/{}/snapshot.jpg" , frigate_host , id);
                             log::debug!("Image Download URL: {}", image_path);
                             notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string()).expect("Error Displaying notification");
+                        } else if Some("update") == Some(json["type"].as_str().unwrap()) {
+                            // TODO: Handle updating notifcation
                         }
                     }
                     Err(err) => {
@@ -67,8 +67,8 @@ fn main() {
                     }
                 }
         }
-        // Do nothing if there is no payload
-        Ok(_) => {}
+        // Log extra info
+        Ok(info) => {log::debug!("{:?}", info)}
         // Handle Errors
         Err(err) => eprintln!("Error at index {}: {:?}", index, err),
     }

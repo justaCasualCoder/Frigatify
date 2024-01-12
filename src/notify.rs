@@ -1,3 +1,4 @@
+// notify.rs
 use notify_rust::{Notification, Timeout};
 mod display_image;
 pub fn notify(image_path: &str, object: String, camera_name: String) -> Result<(), Box<dyn std::error::Error>> {
