@@ -7,7 +7,7 @@ pub fn notify(image_path: &str, object: String, camera_name: String, zones: Stri
     let body: String = format!("Detected in Zones {}", zones);
     notification
         .summary(&summary)
-        .body(&body) // TODO: Put what zone motion was detected in here
+        .body(&body)
         .timeout(Timeout::Milliseconds(5000)) // TODO: Maybe make customizable timeouts?
         // .action("action-1", "View Feed") // TODO: Make a way to show feed
         .action("action-2", "Show snapshot");
