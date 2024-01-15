@@ -27,12 +27,27 @@ pub fn show_image(image_url: &str, camera_name: &str) -> Result<(), String> {
             None
         }
     };
+    let mut image_width: u32 = 0;
+    let mut image_height: u32 = 0;
+    match &bytes {
+        Some(bytes) => {
+            match imagesize::blob_size(&bytes) {
+                Ok(size) => {
+                    println!("Image dimensions: {}x{}", size.width, size.height);
+                    image_width = size.width as u32;
+                    image_height = size.height as u32;
+                },
+                Err(err) => println!("Error getting dimensions: {:?}", err),
+            }
+        }
+        None => println!("No image data found")
+    }
     // Initialize SDL2
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
     let _image_context = sdl2::image::init(InitFlag::PNG | InitFlag::JPG)?;
     let window = video_subsystem
-        .window(&format!("Camera {} Motion snapshot", camera_name), 1920, 1080) // TODO: Get image size instead of Assuming image size is 1080p
+        .window(&format!("Camera {} Motion snapshot", camera_name), image_width, image_height)
         .position_centered()
         .build()
         .map_err(|e| e.to_string())?;
@@ -52,6 +67,8 @@ pub fn show_image(image_url: &str, camera_name: &str) -> Result<(), String> {
         // Handle the case when bytes is None
         return Err("Failed to download file. No bytes received.".to_string());
     };
+    // let query = texture.query().wid;
+
     // Copy image to Canvas
     canvas.copy(&texture, None, None)?;
     canvas.present();
