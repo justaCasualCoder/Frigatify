@@ -18,6 +18,8 @@
   src="https://img.shields.io/badge/Rust-CE422B"></a>
 </p>
 
+[Frigatify's Goals 🏆](https://github.com/users/justaCasualCoder/projects/5)
+
 ## Getting Started
 
 Download [latest release](https://github.com/justaCasualCoder/Frigatify/releases/tag/latest) and install it:
