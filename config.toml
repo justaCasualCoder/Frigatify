@@ -6,3 +6,5 @@ mqtt_port = "1883"
 frigate_host = "http://yourfrigateserverip:5000"
 # (Optional) Custom command to run when motion is detected
 #notify_cmd = "/bin/echo 'Hello World'"
+# (Optional) Arguments passed to MPV
+#mpv_args = "rtsp://yourip --profile=low-latency --untimed"

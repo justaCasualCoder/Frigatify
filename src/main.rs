@@ -26,6 +26,9 @@ fn main() {
         eprintln!("MQTT host not defined in config. Exiting.");
         std::process::exit(1)
     });
+    let mpv_args = config_values.get("mpv_args")
+        .map(|v| v.parse::<String>().unwrap())
+        .unwrap_or("".to_string());
     let frigate_host = config_values.get("frigate_host").unwrap_or_else(|| {
         eprintln!("Frigate host not defined in config. Exiting.");
         std::process::exit(1)
@@ -67,8 +70,9 @@ fn main() {
                                     .env("IMAGE_LINK", &image_path)
                                     .env("EVENT_ID", &id)
                                     .spawn()
-                                    .expect("Failed to run custom command");                            }
-                            notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string(), json["before"]["entered_zones"].to_string()).expect("Error Displaying notification");
+                                    .expect("Failed to run custom command");                            
+                                }
+                            notify::notify(&image_path, json["after"]["label"].to_string(), json["before"]["camera"].to_string(), json["before"]["entered_zones"].to_string(), mpv_args.to_string()).expect("Error Displaying notification");
                         } else if Some("update") == Some(json["type"].as_str().unwrap()) {
                             // TODO: Handle updating notifcation. Currently does not make sense because Frigatify is NOT async.
                         }

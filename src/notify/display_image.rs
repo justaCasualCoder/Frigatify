@@ -3,7 +3,18 @@ extern crate sdl2;
 use sdl2::event::Event;
 use sdl2::image::{InitFlag, LoadTexture};
 use sdl2::keyboard::Keycode;
-
+use std::process::Command;
+pub fn show_vid(mpv_args: String) -> Result<(), String> {
+    if mpv_args != "" {
+        log::debug!("Calling command: 'mpv {}'", mpv_args);
+        let arg_list: Vec<&str> = mpv_args.split_whitespace().collect();
+        Command::new("mpv")
+            .args(arg_list)
+            .spawn()
+            .map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
 pub fn show_image(image_url: &str, camera_name: &str) -> Result<(), String> {
     // Get response
     let response = ureq::get(image_url).call();
