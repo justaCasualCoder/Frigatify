@@ -79,6 +79,12 @@ fn main() {
                     }
                 }
         }
+        // Handle success data
+        Ok(rumqttc::Event::Incoming(rumqttc::Packet::ConnAck(data))) => {
+            if data.code == rumqttc::ConnectReturnCode::Success {
+                println!("Connected!")
+            }
+        }
         // Log extra info
         Ok(info) => {log::debug!("{:?}", info)}
         // Handle Errors
