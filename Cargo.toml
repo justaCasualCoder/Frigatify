@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 notify-rust = "4"
-rumqttc = "0.23.0"
+rumqttc = "0.24.0"
 serde = "1.0.193"
 serde_json = "1.0"
 bytes = "1.0"
